@@ -26,6 +26,7 @@ namespace ariel {
 
         void reload();
 
+        std::string print() const;
     };
 }
 #endif

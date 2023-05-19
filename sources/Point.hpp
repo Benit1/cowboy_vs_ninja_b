@@ -6,6 +6,8 @@
 #define COWBOY_VS_NINJA_POINT_H
 
 
+#include <string>
+
 namespace ariel {
     class Point {
 
@@ -22,12 +24,15 @@ namespace ariel {
 
         double distance(Point &other);
 
-        void print();
-
         Point moveTowards(Point &src, Point &dest, double distance);
 
         bool operator==(Point &other);
 
+        std::__cxx11::basic_string<char> print() const;
+
+        double getXAxis() const;
+
+        double getYAxis() const;
     };
 }
 #endif

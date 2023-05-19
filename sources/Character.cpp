@@ -1,6 +1,7 @@
 //
 // Created by beni on 5/15/23.
 //
+#include <stdexcept>
 #include "Character.hpp"
 
 namespace ariel {
@@ -9,45 +10,57 @@ namespace ariel {
 
     }
 
-    Character::Character(Character &character) : position(character.position) {
+//copy constructor
+    Character::Character(Character &character) : position(character.position), life_points(character.life_points),
+                                                 name(character.name) {
 
     }
 
-    Character::Character(Character &&character) noexcept: position(character.position) {
+//move constructor
+    Character::Character(Character &&character) noexcept: position(character.position),
+                                                          life_points(character.life_points), name(character.name) {
 
     }
 
+//destructor
     Character::~Character() {
 
     }
 
 //functions:
-    bool ariel::Character::isAlive() {
+//return true if the character life points is bigger than 0
+    bool ariel::Character::isAlive() const {
+        if (this->life_points > 0) {
+            return true;
+        }
         return false;
     }
 
+//receives a pointer to another character and returns the distance between the characters
     double Character::distance(Character *other) {
-        return 0;
+        return this->position.distance(other->position);
     }
 
     void Character::hit(int damage) {
-
+        if (damage < 0) throw std::invalid_argument("Damage can't be negative number");
+        this->life_points -= damage;
+        //life points cant be negative
+        if (this->life_points < 0) {
+            life_points = 0;
+        }
     }
 
-    std::string Character::getName() {
-        return std::string();
+
+    std::string Character::getName() const {
+        return this->name;
     }
 
-    Point Character::getPosition() {
-        return Point(0, 0);
+    Point Character::getPosition() const {
+        return this->position;
     }
 
-    std::string Character::print() {
-        return std::string();
-    }
-
-    int Character::getLife() {
-        return 0;
+    int Character::getLife() const {
+        return this->life_points;
     }
 
 

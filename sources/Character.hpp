@@ -28,19 +28,18 @@ namespace ariel {
         virtual ~Character();
 
 //functions:
-        bool isAlive();
+        bool isAlive() const;
 
         double distance(Character *other);
 
         void hit(int damage);
 
-        std::string getName();
+        std::string getName() const;
 
-        Point getPosition();
+        Point getPosition() const;
 
-        int getLife();
+        int getLife() const;
 
-        std::string print();
     };
 }
 #endif

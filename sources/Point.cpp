@@ -2,6 +2,7 @@
 // Created by beni on 5/15/23.
 //
 #include <valarray>
+#include <sstream>
 #include "Point.hpp"
 #include "iostream"
 
@@ -13,7 +14,9 @@ namespace ariel {
     Point::Point() : X_axis(0), Y_axis(0) {}
 
 //destructor
-    Point::~Point() = default;
+    Point::~Point() {
+
+    }
 
 
     double Point::distance(Point &other) {
@@ -22,8 +25,18 @@ namespace ariel {
         return std::sqrt(dX * dX + dY * dY);
     }
 
-    void Point::print() {
-        std::cout << "(" << X_axis << "," << Y_axis << ")" << std::endl;
+    std::string Point::print() const {
+        std::ostringstream pointStream;
+        pointStream << "(" << getXAxis() << "," << getYAxis() << ")";
+        return pointStream.str();
+    }
+
+    double Point::getXAxis() const {
+        return X_axis;
+    }
+
+    double Point::getYAxis() const {
+        return Y_axis;
     }
 
 //Method that moves this point towards another point by a specified distance
