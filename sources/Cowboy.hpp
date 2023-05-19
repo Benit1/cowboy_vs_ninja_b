@@ -16,13 +16,14 @@ namespace ariel {
 
     class Cowboy : public Character {
     public:
+        int bullets;
 //constructor:
         Cowboy(std::string name, Point pos);
 
 //functions:
         void shoot(Character *enemy);
 
-        bool hasbullets() const;
+        bool hasboolets() const;
 
         void reload();
 

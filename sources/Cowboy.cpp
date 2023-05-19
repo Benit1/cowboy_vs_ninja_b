@@ -7,20 +7,36 @@
 #include <sstream>
 
 namespace ariel {
-    Cowboy::Cowboy(std::string name, Point pos) : Character(pos, life, std::move(name)) {
+    //constructor:
+    Cowboy::Cowboy(std::string name, Point pos) : Character(pos, life, std::move(name)), bullets(bullet_amount) {
 
     }
 
     void ariel::Cowboy::shoot(Character *enemy) {
+        if (enemy == nullptr) {
+            throw std::invalid_argument("Enemy is null");
+        }
+        if (!enemy->isAlive()) throw std::runtime_error("Enemy K.O ☠️️");
+        if (!this->isAlive()) throw std::runtime_error("I'm a dead cowboy ☠");
+        if (this == enemy) throw std::runtime_error("Dont kill yourself");
+        if (this->bullets == 0) {
+            reload();
+        } else {
+            enemy->hit(10);
+            this->bullets--;
+        }
+
 
     }
 
-    bool Cowboy::hasbullets() const {
+    bool Cowboy::hasboolets() const {
+        if (bullets > 0) { return true; }
         return false;
     }
 
     void Cowboy::reload() {
-
+        if (!this->isAlive()) throw std::runtime_error("I'm a dead cowboy ☠");
+        this->bullets = bullet_amount;
     }
 
     std::string Cowboy::print() const {
