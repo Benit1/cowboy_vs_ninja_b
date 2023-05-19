@@ -28,6 +28,8 @@ namespace ariel {
         void slash(Character *enemy);
 
         int getSpeed() const;
+
+        std::string print() const;
     };
 
 }

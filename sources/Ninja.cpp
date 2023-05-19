@@ -4,6 +4,7 @@
 #include "Ninja.hpp"
 
 #include <utility>
+#include <sstream>
 
 namespace ariel {
 //constructors:
@@ -28,6 +29,19 @@ namespace ariel {
 
     int Ninja::getSpeed() const {
         return 0;
+    }
+
+    std::string Ninja::print() const {
+        std::ostringstream ninjaStream;
+        ninjaStream << "N: ";
+
+        if (getLife() > 0) {
+            ninjaStream << getName() << " HP:" << getLife() << " Position:" << getPosition().print();
+        } else {
+            ninjaStream << "(" << getName() << ") Position:" << getPosition().print();
+        }
+
+        return ninjaStream.str();
     }
 
 
