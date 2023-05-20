@@ -68,13 +68,17 @@ namespace ariel {
     }
 
     //return true if Character is in team
-    bool Character::getInTeam() {
+    bool Character::getInTeam() const {
         return this->in_team;
     }
 
     //set Character in team
     void Character::setInTeam() {
         this->in_team = true;
+    }
+
+    void Character::setLeader() {
+        this->leader=true;
     }
 
 

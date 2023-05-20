@@ -16,6 +16,7 @@ namespace ariel {
         int life_points;
         std::string name;
         bool in_team = false;
+        bool leader = false;
 
     public:
 //constructors:
@@ -42,9 +43,11 @@ namespace ariel {
 
         void setLocation(const Point &position);
 
-        bool getInTeam();
+        bool getInTeam() const;
 
         void setInTeam();
+
+        void setLeader();
     };
 }
 #endif
