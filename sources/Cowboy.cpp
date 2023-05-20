@@ -44,9 +44,9 @@ namespace ariel {
         cowboyStream << "C: ";
 
         if (getLife() > 0) {
-            cowboyStream << getName() << " HP:" << getLife() << " Position:" << getPosition().print();
+            cowboyStream << getName() << " HP:" << getLife() << " Position:" << getLocation().print();
         } else {
-            cowboyStream << "(" << getName() << ") Position:" << getPosition().print();
+            cowboyStream << "(" << getName() << ") Position:" << getLocation().print();
         }
 
         return cowboyStream.str();

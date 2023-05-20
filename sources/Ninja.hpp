@@ -22,6 +22,8 @@ namespace ariel {
 
         Ninja(Ninja &&nin) noexcept;
 
+        ~Ninja() override;
+
 //functions:
         void move(Character *enemy);
 

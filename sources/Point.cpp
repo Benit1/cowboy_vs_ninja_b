@@ -19,7 +19,7 @@ namespace ariel {
     }
 
 
-    double Point::distance(Point &other) {
+    double Point::distance(Point other) {
         double dX = X_axis - other.X_axis;
         double dY = Y_axis - other.Y_axis;
         return std::sqrt(dX * dX + dY * dY);

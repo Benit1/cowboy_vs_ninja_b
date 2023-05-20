@@ -9,13 +9,13 @@
 #define COWBOY_VS_NINJA_CHARACTER_H
 
 
-
 namespace ariel {
     class Character {
     private:
         Point position;
         int life_points;
         std::string name;
+        bool in_team = false;
 
     public:
 //constructors:
@@ -36,10 +36,15 @@ namespace ariel {
 
         std::string getName() const;
 
-        Point getPosition() const;
+        Point getLocation() const;
 
         int getLife() const;
 
+        void setLocation(const Point &position);
+
+        bool getInTeam();
+
+        void setInTeam();
     };
 }
 #endif

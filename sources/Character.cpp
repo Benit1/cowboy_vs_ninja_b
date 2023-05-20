@@ -55,12 +55,26 @@ namespace ariel {
         return this->name;
     }
 
-    Point Character::getPosition() const {
+    Point Character::getLocation() const {
         return this->position;
+    }
+
+    void Character::setLocation(const Point &position) {
+        Character::position = position;
     }
 
     int Character::getLife() const {
         return this->life_points;
+    }
+
+    //return true if Character is in team
+    bool Character::getInTeam() {
+        return this->in_team;
+    }
+
+    //set Character in team
+    void Character::setInTeam() {
+        this->in_team = true;
     }
 
 

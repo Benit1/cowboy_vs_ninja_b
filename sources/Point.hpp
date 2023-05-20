@@ -22,9 +22,9 @@ namespace ariel {
 
         ~Point();
 
-        double distance(Point &other);
+        double distance(Point other);
 
-        Point moveTowards(Point &src, Point &dest, double distance);
+        static Point moveTowards(Point &src, Point &dest, double distance);
 
         bool operator==(Point &other);
 
