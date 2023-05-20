@@ -6,7 +6,6 @@
 #define COWBOY_VS_NINJA_TEAM_HPP
 
 
-
 #include "Character.hpp"
 #include "Cowboy.hpp"
 #include "Ninja.hpp"
@@ -16,16 +15,18 @@
 #include "array"
 
 namespace ariel {
-    int const team_members = 10;
+    int const max_team_members = 10;
 
     class Team {
     private:
-        std::array<Character *, team_members> team;
+        std::array<Character *, max_team_members> team{};
+        Character *leader{};
+        int team_size{};
     public:
 //constructors:
-        Team(Character *leader);
+        explicit Team(Character *leader);
 
-        Team(Team &tem);
+        Team(const Team &other);
 
         Team(Team &&tem) noexcept;
 
