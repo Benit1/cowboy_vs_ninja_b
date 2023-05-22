@@ -10,4 +10,8 @@ namespace ariel {
 
     }
 
+    std::string OldNinja::getType(){
+        return "ON";
+    }
+
 }

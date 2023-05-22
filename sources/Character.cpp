@@ -59,8 +59,8 @@ namespace ariel {
         return this->position;
     }
 
-    void Character::setLocation(const Point &position) {
-        Character::position = position;
+    void Character::setLocation(const Point &pos) {
+        Character::position = pos;
     }
 
     int Character::getLife() const {
@@ -78,7 +78,11 @@ namespace ariel {
     }
 
     void Character::setLeader() {
-        this->leader=true;
+        this->leader = true;
+    }
+
+    void Character::removeLeader() {
+        this->leader = false;
     }
 
 

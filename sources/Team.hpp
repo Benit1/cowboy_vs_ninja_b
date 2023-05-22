@@ -20,10 +20,11 @@ namespace ariel {
     class Team {
     private:
         std::array<Character *, max_team_members> team{};
-        Character *leader{};
-        unsigned int team_size{};
-        unsigned int cowboysNum = 0;
-        unsigned int ninjasNum = max_team_members - 1 - (team_size - cowboysNum);
+        Character *leader;
+        size_t team_size ;
+        size_t cowboysNum = 0;
+//        size_t ninjasNum = 0;
+
     public:
 //constructors:
         explicit Team(Character *leader);
@@ -37,15 +38,26 @@ namespace ariel {
 //functions:
         void add(Character *new_team_member);
 
-        void attack(Team *enemy_team);
+        virtual void attack(Team *enemy_team);
 
-        void print();
+        virtual void print();
 
         int stillAlive() const;
 
         Character *findClosestCharacter(Character *referenceCharacter, Team *targetTeam) const;
 
         void findNewLeader();
+
+        const std::array<Character *, max_team_members> &getTeam() const;
+
+        Character *getLeader() const;
+
+        unsigned int getTeamSize() const;
+
+        size_t getCowboysNum() const;
+
+
+
     };
 }
 #endif

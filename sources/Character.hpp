@@ -48,6 +48,11 @@ namespace ariel {
         void setInTeam();
 
         void setLeader();
+
+        virtual std::string print() = 0;
+
+
+        void removeLeader();
     };
 }
 #endif

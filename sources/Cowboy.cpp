@@ -39,7 +39,7 @@ namespace ariel {
         this->bullets = bullet_amount;
     }
 
-    std::string Cowboy::print() const {
+    std::string Cowboy::print() {
         std::ostringstream cowboyStream;
         cowboyStream << "C: ";
 

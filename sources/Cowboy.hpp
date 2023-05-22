@@ -6,7 +6,6 @@
 #define COWBOY_VS_NINJA_COWBOY_H
 
 
-
 #include "Character.hpp"
 
 
@@ -17,6 +16,7 @@ namespace ariel {
     class Cowboy : public Character {
     public:
         int bullets;
+
 //constructor:
         Cowboy(std::string name, Point pos);
 
@@ -27,7 +27,7 @@ namespace ariel {
 
         void reload();
 
-        std::string print() const;
+        std::string print();
     };
 }
 #endif

@@ -1,9 +1,10 @@
 //
 // Created by beni on 5/15/23.
 //
-#include <stdexcept>
-#include <climits>
 #include "Team.hpp"
+#include <stdexcept>
+#include <iostream>
+#include <climits>
 
 namespace ariel {
 //constructors:
@@ -13,10 +14,9 @@ namespace ariel {
         }
         if (leader->getInTeam())throw std::runtime_error("this Leader is already in a team");
         if (leader->getLife() == 0)throw std::runtime_error("Leader is dead ☠");
-        leader->setInTeam();
         this->leader = leader;
-        team_size = 1;
-
+        team_size = 0;
+        add(this->leader);
     }
 
 //copy constructor
@@ -29,7 +29,7 @@ namespace ariel {
 
 //destructor
     Team::~Team() {
-        for (size_t i = 0; i < 10; i++) {
+        for (size_t i = 0; i < max_team_members; i++) {
             delete team.at(i);
         }
     }
@@ -42,6 +42,7 @@ namespace ariel {
         if (new_team_member == nullptr) throw std::invalid_argument("New member is null");
         if (new_team_member->getInTeam())throw std::runtime_error("New member is already in team");
         if (!new_team_member->isAlive()) throw std::invalid_argument("Cannot add dead member to the team");
+        if (this->team_size == max_team_members) throw std::runtime_error("The team is full");
         new_team_member->setInTeam();
         Cowboy *C = dynamic_cast<Cowboy *>(new_team_member);
         Ninja *N = dynamic_cast<Ninja *>(new_team_member);
@@ -50,8 +51,9 @@ namespace ariel {
             team[cowboysNum++] = new_team_member;
         } else if (N != nullptr) // new_team_member is a Ninja
         {
-            team[ninjasNum++] = new_team_member;
+            team[max_team_members - 1 - (team_size - cowboysNum)] = new_team_member;
         }
+
         team_size++;
     }
 
@@ -65,16 +67,56 @@ namespace ariel {
         }
         //find the closest enemy team member to the leader
         Character *victim = findClosestCharacter(leader, enemy_team);
+        if (!victim) return;
         // Cowboys attack first
+        for (size_t i = 0; i < cowboysNum; i++) {
+            if (team.at(i) == nullptr) {
+                continue;
+            }
+            if (team.at(i)->isAlive()) {
+                Cowboy *C = dynamic_cast<Cowboy *>(team.at(i));
+                if (C->hasboolets()) {
+                    C->shoot(victim);
+                } else {
+                    C->reload();
+                }
+                if (!victim->isAlive()) {
+                    victim = findClosestCharacter(getLeader(), enemy_team);
+                }
+                if (victim == nullptr)
+                    break;
+            }
+        }
+        // Ninjas attack after cowboys attack
+        size_t ninjasNum = team_size - cowboysNum;
+        for (size_t i = 9; i > 9 - ninjasNum; i--) {
+            if (team.at(i) == nullptr) {
+                continue;
+            }
+            if (team.at(i)->isAlive()) {
+                if (victim == nullptr)break;
+                Ninja *N = dynamic_cast<Ninja *>((team.at(i)));
+                if (N->distance(victim) <= 1) {
+                    N->slash(victim);
+                } else {
+                    N->move(victim);
+                }
+                if (!victim->isAlive()) {
+                    victim = findClosestCharacter(getLeader(), enemy_team);
+                }
+                if (victim == nullptr)
+                    break;
+            }
 
+        }
 
     }
 
     //Function that count how many team members is still alive
     int Team::stillAlive() const {
         int alive_counter = 0;
-        for (unsigned int i = 0; i < team_size; i++) {
-            if (team[i] != nullptr && team[i]->isAlive()) {
+        for (size_t i = 0; i < max_team_members; i++) {
+            if (team.at(i) != nullptr && team.at(i)->isAlive()) {
                 alive_counter++;
             }
         }
@@ -82,27 +124,43 @@ namespace ariel {
     };
 
     void Team::print() {
+        std::cout << "Team 1 members: " << std::endl;
+        for (size_t i = 0; i < cowboysNum; i++) {
+            if (team.at(i) == nullptr) {
+                continue;
+            }
+            if (team.at(i) == leader)
+                std::cout << "LEADER";
+            //prints the cowboys first
+            std::cout << team.at(i)->print() << std::endl;
+        }
+        size_t ninjasNum = team_size - cowboysNum;
+        for (size_t i = 9; i > 9 - ninjasNum; i--) {
+            if (team.at(i) == nullptr) {
+                continue;
+            }
+            if (team.at(i) == leader)
+                std::cout << "LEADER";
+            //prints the ninjas after
+            std::cout << team.at(i)->print() << std::endl;
+        }
 
     }
 
     Character *Team::findClosestCharacter(Character *character, Team *targetTeam) const {
         if (character == nullptr) throw std::invalid_argument("Character is null");
         if (targetTeam == nullptr) throw std::invalid_argument("Target team is null");
-        if (targetTeam->stillAlive() == 0) {
-            throw std::invalid_argument("Target team has no characters alive");
-        }
         // Initialize the nearest character as null
         Character *nearestCharacter = nullptr;
         // Initialize the minimum distance as the maximum possible int
-        int minDist = INT_MAX;
+        double minDist = INT_MAX;
 
-        for (unsigned int i = 0; i < team_size; ++i) {
+        for (size_t i = 0; i < max_team_members; ++i) {
             // Get the current character from the target team
-            Character *currCharacter = targetTeam->team[i];
-
-            if (currCharacter && currCharacter->isAlive()) {
+            Character *currCharacter = targetTeam->team.at(i);
+            if (currCharacter != nullptr && currCharacter->isAlive()) {
                 // Calculate the distance between the reference character and the current character
-                int currDist = character->distance(currCharacter);
+                double currDist = character->distance(currCharacter);
                 // If the current distance is less than the minimum distance found so far
                 // Update the minimum distance and set the nearest character to the current character
                 if (currDist < minDist) {
@@ -116,9 +174,31 @@ namespace ariel {
     }
 
     void Team::findNewLeader() {
-        leader = findClosestCharacter(leader, this);
-        leader->setLeader();
+        Character *newLeader = findClosestCharacter(leader, this);
+        if (newLeader != nullptr) {
+            leader->removeLeader();
+            leader = newLeader;
+            leader->setLeader();
+        }
+    }
+
+    const std::array<Character *, max_team_members> &Team::getTeam() const {
+        return team;
+    }
+
+    Character *Team::getLeader() const {
+        return leader;
+    }
+
+    unsigned int Team::getTeamSize() const {
+        return team_size;
+    }
+
+    size_t Team::getCowboysNum() const {
+        return cowboysNum;
     }
 
 
 }
+
+

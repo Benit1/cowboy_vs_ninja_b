@@ -21,7 +21,7 @@ TEST_CASE("Cowboy Class Initialization tests") {
     CHECK(luckyLuke.getName() == "Lucky Luke");
     CHECK_EQ(luckyLuke.getLife(), 110);
     CHECK(luckyLuke.isAlive());
-    CHECK(luckyLuke.hasbullets());
+    CHECK(luckyLuke.hasboolets());
 }
 
 TEST_CASE("Cowboy Class Shooting tests") {
@@ -38,12 +38,12 @@ TEST_CASE("Cowboy Class Shooting tests") {
         luckyLuke.shoot(&yuval);
     }
 // Check that Lucky Luke has no bullets left
-    CHECK_FALSE(luckyLuke.hasbullets());
+    CHECK_FALSE(luckyLuke.hasboolets());
 // Check yuval's life after being shot multiple times
     CHECK_EQ(yuval.getLife(), 50);
 // Check if Lucky Luke have bullets after reloading
     luckyLuke.reload();
-    CHECK(luckyLuke.hasbullets());
+    CHECK(luckyLuke.hasboolets());
 }
 
 TEST_CASE("Ninja Class Initialization tests") {
@@ -95,7 +95,7 @@ TEST_CASE("Test Team Class") {
     team.add(&yuval_tibi);
     CHECK_EQ(team.stillAlive(), 2);
     for (int i = 0; i < 11; i++) {
-        if (!daniel_tibi.hasbullets()) {
+        if (!daniel_tibi.hasboolets()) {
             daniel_tibi.reload();
         }
         daniel_tibi.shoot(&beni_tibi);

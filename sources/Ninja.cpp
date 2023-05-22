@@ -46,7 +46,7 @@ namespace ariel {
         if (!enemy->isAlive()) throw std::runtime_error("Enemy K.O ☠️️");
         if (!this->isAlive()) throw std::runtime_error("I'm a dead ninja ☠");
         if (this == enemy) throw std::runtime_error("Dont kill yourself");
-        if (this->distance(enemy) < 1) {
+        if (this->distance(enemy) <= 1) {
             enemy->hit(40);
         }
     }
@@ -56,7 +56,7 @@ namespace ariel {
         return this->speed;
     }
 
-    std::string Ninja::print() const {
+    std::string Ninja::print()  {
         std::ostringstream ninjaStream;
         ninjaStream << "N: ";
 

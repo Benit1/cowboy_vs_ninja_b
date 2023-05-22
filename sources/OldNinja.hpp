@@ -17,6 +17,8 @@ namespace ariel {
     public:
 //constructor:
         OldNinja(std::string name, Point pos);
+
+        std::string getType();
     };
 }
 #endif

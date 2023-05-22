@@ -31,7 +31,7 @@ namespace ariel {
 
         int getSpeed() const;
 
-        std::string print() const;
+        std::string print() override;
     };
 
 }
