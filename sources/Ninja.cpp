@@ -69,5 +69,13 @@ namespace ariel {
         return ninjaStream.str();
     }
 
+    Ninja &Ninja::operator=(const Ninja &nin) {
+        return (*this);
+    }
+
+    Ninja &Ninja::operator=(Ninja &&nin) noexcept {
+        return (*this);
+    }
+
 
 }

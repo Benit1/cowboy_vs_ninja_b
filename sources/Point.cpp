@@ -13,6 +13,7 @@ namespace ariel {
 // Default constructor that initializes the point at the origin (0,0)
     Point::Point() : X_axis(0), Y_axis(0) {}
 
+
 //destructor
     Point::~Point() {
 
@@ -65,6 +66,7 @@ namespace ariel {
     bool Point::operator==(Point &other) {
         return X_axis == other.X_axis && Y_axis == other.Y_axis;
     }
+
 
 }
 

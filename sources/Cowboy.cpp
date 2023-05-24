@@ -12,6 +12,10 @@ namespace ariel {
 
     }
 
+    int Cowboy::getBullets() const {
+        return bullets;
+    }
+
     void ariel::Cowboy::shoot(Character *enemy) {
         if (enemy == nullptr) {
             throw std::invalid_argument("Enemy is null");

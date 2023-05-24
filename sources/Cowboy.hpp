@@ -27,7 +27,9 @@ namespace ariel {
 
         void reload();
 
-        std::string print();
+        std::string print() override;
+
+        int getBullets() const;
     };
 }
 #endif

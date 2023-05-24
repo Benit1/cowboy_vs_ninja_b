@@ -27,6 +27,8 @@ namespace ariel {
 
     }
 
+
+
 //functions:
 //return true if the character life points is bigger than 0
     bool ariel::Character::isAlive() const {
@@ -83,6 +85,15 @@ namespace ariel {
 
     void Character::removeLeader() {
         this->leader = false;
+    }
+
+    Character& Character::operator=(const Character& character){
+        return (*this);
+    }
+
+
+    Character &Character::operator=(Character &&character) noexcept {
+        return (*this);
     }
 
 

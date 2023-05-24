@@ -10,8 +10,6 @@
 
 namespace ariel {
     class Point {
-
-
         double X_axis;
         double Y_axis;
 
@@ -21,6 +19,7 @@ namespace ariel {
         Point();
 
         ~Point();
+
 
         double distance(Point other);
 
@@ -33,6 +32,8 @@ namespace ariel {
         double getXAxis() const;
 
         double getYAxis() const;
+
+
     };
 }
 #endif

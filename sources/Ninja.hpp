@@ -6,7 +6,6 @@
 #define COWBOY_VS_NINJA_NINJA_HPP
 
 
-
 #include "Character.hpp"
 
 namespace ariel {
@@ -23,6 +22,11 @@ namespace ariel {
         Ninja(Ninja &&nin) noexcept;
 
         ~Ninja() override;
+
+// Assignment operators for tidy
+        Ninja &operator=(const Ninja &nin);
+
+        Ninja &operator=(Ninja &&nin) noexcept;
 
 //functions:
         void move(Character *enemy);

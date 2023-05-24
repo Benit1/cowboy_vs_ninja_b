@@ -29,11 +29,16 @@ namespace ariel {
 //constructors:
         explicit Team(Character *leader);
 
-//        Team(const Team &other);
+       Team(const Team &other);
 
         Team(Team &&tem) noexcept;
 
-        ~Team();
+        virtual ~Team();
+
+// Assignment operators for tidy
+        Team& operator=(const Team& tem);
+
+        Team& operator=(Team&& tem) noexcept;
 
 //functions:
         void add(Character *new_team_member);
@@ -55,8 +60,6 @@ namespace ariel {
         unsigned int getTeamSize() const;
 
         size_t getCowboysNum() const;
-
-
 
     };
 }

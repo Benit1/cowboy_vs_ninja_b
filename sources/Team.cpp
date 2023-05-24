@@ -20,9 +20,12 @@ namespace ariel {
     }
 
 //copy constructor
-//    Team::Team(const Team &other) : leader(new Character(*(other.leader))), team_size(0) {
-//
-//    }
+    Team::Team(const Team &other) {
+        this->cowboysNum = other.cowboysNum;
+        this->leader = other.leader;
+        this->team_size = other.team_size;
+        this->team = other.team;
+    }
 
 //move copy constructor
     Team::Team(Team &&other) noexcept: leader(other.leader), team_size(0) { other.leader = nullptr; }
@@ -58,7 +61,7 @@ namespace ariel {
     }
 
     void Team::attack(Team *enemy_team) {
-        if (enemy_team == nullptr) throw std::invalid_argument("New member is null");
+        if (enemy_team == nullptr) throw std::invalid_argument("Enemy team is null");
         if (this == enemy_team)throw std::invalid_argument("Dont kill yourself");
         if (enemy_team->stillAlive() == 0) throw std::runtime_error("Enemy team is dead ☠");
         if (this->stillAlive() == 0)throw std::runtime_error("Dead team ☠ cant attack");
@@ -124,7 +127,7 @@ namespace ariel {
     };
 
     void Team::print() {
-        std::cout << "Team 1 members: " << std::endl;
+        std::cout << "Team members: " << std::endl;
         for (size_t i = 0; i < cowboysNum; i++) {
             if (team.at(i) == nullptr) {
                 continue;
@@ -198,7 +201,13 @@ namespace ariel {
         return cowboysNum;
     }
 
+    Team &Team::operator=(const Team &tem) {
+        return (*this);
+    }
+
+    Team &Team::operator=(Team &&tem) noexcept {
+        return (*this);
+    }
+
 
 }
-
-

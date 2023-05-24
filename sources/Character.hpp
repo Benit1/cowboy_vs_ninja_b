@@ -28,6 +28,12 @@ namespace ariel {
 
         virtual ~Character();
 
+        // Assignment operators for tidy
+        Character &operator=(const Character &character);
+
+        Character &operator=(Character &&character) noexcept;
+
+
 //functions:
         bool isAlive() const;
 

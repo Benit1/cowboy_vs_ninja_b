@@ -11,7 +11,7 @@ ariel::Team2::Team2(Character *leader) : Team(leader) {
 
 //The same as team, but the order of the attack will be according to the order of addition without distinguishing cowboys or ninjas.
 void ariel::Team2::attack(ariel::Team *enemy_team) {
-    if (enemy_team == nullptr) throw std::invalid_argument("New member is null");
+    if (enemy_team == nullptr) throw std::invalid_argument("Enemy team is null");
     if (this == enemy_team)throw std::invalid_argument("Dont kill yourself");
     if (enemy_team->stillAlive() == 0) throw std::runtime_error("Enemy team is dead ☠");
     if (this->stillAlive() == 0)throw std::runtime_error("Dead team ☠ cant attack");
@@ -50,7 +50,7 @@ void ariel::Team2::attack(ariel::Team *enemy_team) {
 }
 
 void ariel::Team2::print() {
-    std::cout << "Team 2 members: " << std::endl;
+
     for (size_t i = 0; i < getCowboysNum(); i++) {
         if (getTeam().at(i) == getLeader())
             std::cout << "LEADER";
